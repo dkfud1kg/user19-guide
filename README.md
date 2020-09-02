@@ -67,6 +67,8 @@
 
 ## TO-BE 조직 (Vertically-Aligned)
   ![2](https://user-images.githubusercontent.com/67453893/91927149-bda39f80-ed13-11ea-90df-6a488d0d0210.png)
+  
+  고객에게 신속한 안내 및 만족도 관리를 위한 고객관리팀의 추가
   ![3](https://user-images.githubusercontent.com/67447253/92023943-74e1fa00-ed98-11ea-982f-1ba40c61cca6.png)
 
 ## Event Storming 결과
