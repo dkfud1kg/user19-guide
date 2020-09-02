@@ -45,6 +45,8 @@
 1. 관리자의 병원 정보 삭제에 따라서 해당 병원에 예약한 예약자의 상태를 변경한다.
 1. 관리자의 병원 정보 삭제에 따라서 예약관리의 해당 내역의 상태가 예약 강제 취소로 변경된다.
 1. 사용자가 건강검진 예약내역 상태를 조회한다.
+1. 사용자의 건강검진 예약 완료 / 예약 취소를 알림 발송한다. (Async)
+
 
 ## 비기능적 요구사항
 1. 트랜잭션
@@ -145,6 +147,7 @@
 | Hospital | 병원 관리 | 8082 | http://localhost:8082/hospitals | http://HospitalManage:8080/hospitals |
 | Reservation | 예약 관리 | 8083 | http://localhost:8083/reservations | http://ReservationManage:8080/reservations |
 | MyPage | my page | 8084 | http://localhost:8084/myPages | http://MyPage:8080/myPages |
+| alarm | 알림 발송 | 8085| http://localhost:8085/alarms | http://alarm:8080/alarms |
 
 
 
@@ -172,6 +175,10 @@ spring:
           uri: http://MyPage:8080
           predicates:
             - Path= /myPages/**
+	- id: alarm
+          uri: http://alarm:8080
+          predicates:
+            - Path= /alarms/**
 ```
 
 
