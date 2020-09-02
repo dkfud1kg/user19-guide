@@ -23,7 +23,6 @@
   - [폴리글랏 퍼시스턴스](#폴리글랏-퍼시스턴스)
   - [동기식 호출 과 Fallback 처리](#동기식-호출-과-Fallback-처리)
   - [비동기식 호출 과 Eventual Consistency](#비동기식-호출-과-Eventual-Consistency)
-  - [CQRS 구현](#CQRS 구현)
 - [운영](#운영)
   - [CI/CD 설정](#cicd설정)
   - [서킷 브레이킹 / 장애격리](#서킷-브레이킹-/-장애격리)
@@ -126,7 +125,7 @@
 * CQRS 를 위한 Mypage 서비스만 DB를 구분하여 적용
 ![kafka](https://user-images.githubusercontent.com/67453893/91807070-1cf7a600-ec67-11ea-9e5e-f085f5904d5b.png)
 
-* 고객 알림 발송 기능의 Alarm 서비스 
+* 고객 알림 발송 기능의 Alarm 서비스 추가하여 적용
 ![kafka](https://user-images.githubusercontent.com/67447253/92025890-25e99400-ed9b-11ea-8efd-0f43d811af16.png)
 
 
