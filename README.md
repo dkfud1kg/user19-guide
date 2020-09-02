@@ -448,8 +448,26 @@ Shortest transaction:           0.84
 
 * 다시 부하 발생하여 DestinationRule 적용 제거하여 정상 처리 확인
 ```
-kubectl delete -f dr-hospital.yaml
+$kubectl delete -f dr-hospital.yaml
 destinationrule.networking.istio.io "dr-hospital" deleted
+
+$siege -v -c300 -t300S -r10 --content-type "application/json" 'http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals POST {"id": "101","hospitalId":"2","hospitalNm":"bye","chkDate":"0909","pcnt":20}'
+HTTP/1.1 200     0.61 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 200     0.76 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 200     0.79 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+:
+Transactions:                  28174 hits
+Availability:                 100.00 %
+Elapsed time:                 126.00 secs
+Data transferred:               0.00 MB
+Response time:                  1.13 secs
+Transaction rate:             223.60 trans/sec
+Throughput:                     0.00 MB/sec
+Concurrency:                  253.16
+Successful transactions:       28174
+Failed transactions:               1
+Longest transaction:            9.44
+Shortest transaction:           0.36
 ```
 
 
