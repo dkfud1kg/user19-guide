@@ -135,11 +135,11 @@
 
 | 기능 | 이벤트 Payload |
 |---|:---:|
-| 1.관리자가 병원 정보( 병원이름, 예약일, 가능인원수)를 등록한다. |![image](https://user-images.githubusercontent.com/67447253/92028680-677c3e00-ed9f-11ea-85bf-b676b795aaf4.JPG)|
-| 2.고객이 건강검진을 예약을 요청한다. </br>3.해당 병원의 검진가능 인원이 감소한다. (Sync)</br>4.예약 완료로 변경된다. (Async)</br>5.예약관리의 해당 내역의 상태가 등록된다. |![image](https://user-images.githubusercontent.com/25805562/91837806-7a035400-ec87-11ea-8966-09403bd5e7eb.png)|
-| 6.고객이 건강검진 예약을 취소한다.</br>7.취소 시, 병원의 검진가능 인원이 증가한다. (Async)</br>8.예약관리의 해당 내역의 상태가 예약 취소로 변경된다. | ![image](https://user-images.githubusercontent.com/25805562/91837990-c2227680-ec87-11ea-9fb1-530410922532.png) |
-| 9.관리자가 병원 정보를 삭제한다.</br>10.해당 병원에 예약한 예약자의 상태를 예약 강제 취소 변경한다. (Async)</br>11.예약관리의 해당 내역의 상태가 예약 강제 취소로 변경된다. | ![image](https://user-images.githubusercontent.com/25805562/91838119-f007bb00-ec87-11ea-9edd-38d9963f9ee0.png) | 
-| 12.건강검진 예약내역 상태를 조회한다.| ![image](https://user-images.githubusercontent.com/25805562/91838415-6ad0d600-ec88-11ea-9df8-1c6895fe6d75.png) |
+| 1.관리자가 병원 정보( 병원이름, 예약일, 가능인원수)를 등록한다. |![image](https://user-images.githubusercontent.com/67447253/92031701-ff7c2680-eda3-11ea-950f-8a6c957b0384.JPG)|
+| 2.고객이 건강검진을 예약을 요청한다. </br>3.해당 병원의 검진가능 인원이 감소한다. (Sync)</br>4.예약 완료로 변경된다. (Async)</br>5.예약관리의 해당 내역의 상태가 등록된다. </br>6.고객에게 건강검진 예약 완료 알림이 전송된다. |![image](https://user-images.githubusercontent.com/67447253/92031742-0efb6f80-eda4-11ea-8992-cb10f13a2d00.JPG)|
+| 7.고객이 건강검진 예약을 취소한다.</br>8.취소 시, 병원의 검진가능 인원이 증가한다. (Async)</br>9.예약관리의 해당 내역의 상태가 예약 취소로 변경된다. </br>10. 고객에게 건강검진 취소 완료 알림이 전송된다. | ![image](https://user-images.githubusercontent.com/67447253/92031771-1b7fc800-eda4-11ea-9b6a-237c5f2ba30d.JPG) |
+| 11.관리자가 병원 정보를 삭제한다.</br>12.해당 병원에 예약한 예약자의 상태를 예약 강제 취소 변경한다.(Async)</br>13.예약관리의 해당 내역의 상태가 예약 강제 취소로 변경된다. </br>14. 고객에게 건강검진 취소 완료 알림이 전송된다. | ![image](https://user-images.githubusercontent.com/67447253/92031809-29354d80-eda4-11ea-9d87-1a98805a7672.JPG) | 
+| 15.건강검진 예약내역 상태를 조회한다.| ![image](https://user-images.githubusercontent.com/67447253/92032064-86c99a00-eda4-11ea-848e-c7e79858f7f7.JPG) |
 
 
 ## DDD 의 적용
