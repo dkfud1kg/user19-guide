@@ -606,55 +606,55 @@ Readiness Probe 미설정 시 무정지 재배포 가능여부 확인을 위해 
 
 - seige 로 배포작업 직전에 워크로드를 모니터링 함.
 ```
-$ siege -v -c1 -t240S --content-type "application/json" 'http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals POST {"id": "101","hospitalId":"2","hospitalNm":"bye","chkDate":"0909","pcnt":20}'
-
+~$ siege -v -c1 -t240S --content-type "application/json" 'http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals POST {"id": "101","hospitalId":"2","hospitalNm":"bye","chkDate":"0909","pcnt":20}'
 ** SIEGE 4.0.4
-** Preparing 100 concurrent users for battle.
+** Preparing 1 concurrent users for battle.
 The server is now under siege...
-
-HTTP/1.1 200     0.48 secs:       0 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 200     0.49 secs:       0 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 200     0.63 secs:       0 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 200     0.48 secs:       0 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 200     1.03 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 200     0.41 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
 :
 
 ```
 
 - CI/CD 파이프라인을 통해 새버전으로 재배포 작업함
 Git hook 연동 설정되어 Github의 소스 변경 발생 시 자동 빌드 배포됨
-재배포 작업 중 서비스 중단됨 (503 오류 발생)
+재배포 작업 중 서비스 중단됨 (500 오류 발생)
 ```
-HTTP/1.1 200     0.48 secs:       0 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 200     0.55 secs:       0 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.47 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.48 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.51 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.47 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.48 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.53 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.50 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
-HTTP/1.1 503     0.45 secs:      95 bytes ==> POST http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 200     0.34 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 200     0.42 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.38 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.41 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.42 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.37 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.39 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.39 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.36 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.35 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.36 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.37 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.38 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500     0.38 secs:     205 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
 :
 
 ```
 
 - seige 의 화면으로 넘어가서 Availability 가 100% 미만으로 떨어졌는지 확인
 ```
-Transactions:                    372 hits
-Availability:                  90.29 %
-Elapsed time:                 205.09 secs
-Data transferred:               0.00 MB
-Response time:                  0.55 secs
-Transaction rate:               1.81 trans/sec
+Transactions:                    261 hits
+Availability:                  81.56 %
+Elapsed time:                 128.90 secs
+Data transferred:               0.01 MB
+Response time:                  0.49 secs
+Transaction rate:               2.02 trans/sec
 Throughput:                     0.00 MB/sec
 Concurrency:                    1.00
-Successful transactions:         372
-Failed transactions:              40
-Longest transaction:            1.50
-Shortest transaction:           0.43
+Successful transactions:         261
+Failed transactions:              59
+Longest transaction:            2.06
+Shortest transaction:           0.34
 
 ```
-- 배포기간중 Availability 가 평소 100%에서 90% 대로 떨어지는 것을 확인. 
+- 배포기간중 Availability 가 평소 100%에서 80% 대로 떨어지는 것을 확인. 
 원인은 쿠버네티스가 성급하게 새로 올려진 서비스를 READY 상태로 인식하여 서비스 유입을 진행한 것이기 때문으로 판단됨. 
 이를 막기위해 Readiness Probe 를 설정함 (buildspec.yml의 Readiness Probe 설정)
 ```
@@ -674,18 +674,18 @@ readinessProbe:
 
 - 동일한 시나리오로 재배포 한 후 Availability 확인:
 ```
-Transactions:                    234 hits
+Transactions:                    229 hits
 Availability:                 100.00 %
-Elapsed time:                 119.04 secs
+Elapsed time:                  94.04 secs
 Data transferred:               0.00 MB
-Response time:                  0.51 secs
-Transaction rate:               1.97 trans/sec
+Response time:                  0.41 secs
+Transaction rate:               2.44 trans/sec
 Throughput:                     0.00 MB/sec
 Concurrency:                    1.00
-Successful transactions:         234
+Successful transactions:         229
 Failed transactions:               0
-Longest transaction:            1.57
-Shortest transaction:           0.41
+Longest transaction:            1.41
+Shortest transaction:           0.35
 
 ```
 
@@ -744,7 +744,7 @@ my-config라는 ConfigMap을 생성하고 key값에 도메인 url을 등록한�
                 
         EOF
 ```
-Deployment yaml에 해단 configMap 적용
+Deployment yaml에 해당 configMap 적용
 
 * HospitalService.java
 ```
@@ -758,17 +758,17 @@ public interface HospitalService {
 ```
 url에 configMap 적용
 
-* kubectl describe pod screeningmanage-9498f6bdc-qtclh  -n skcc-ns
+* kubectl describe pod screeningmanage-69fc7475fc-9vztl -n skcc-ns
 ```
 Containers:
   screeningmanage:
-    Container ID:   docker://8415f0125bac0264b5f77d14ed8ee7c28bc177e2cce9141a4c36e076c7920971
-    Image:          052937454741.dkr.ecr.us-east-2.amazonaws.com/screeningmanage:f8102f4078683bdbf345cc5cae7983b1cb8ea                                                                      668
-    Image ID:       docker-pullable://052937454741.dkr.ecr.us-east-2.amazonaws.com/screeningmanage@sha256:ebc8945df607                                                                      acc63d87e20d345e17245e3472fec43a9690e8ab9ca959573c9b
+    Container ID:   docker://114ec29ac8f5d0de893bf33efb0495e867c05a7021b0e45e630863251d426a8b
+    Image:          052937454741.dkr.ecr.us-east-2.amazonaws.com/user19-screeningmanage:2c3577e8f2e33d8573751a59f9631f4f55e25ddc
+    Image ID:       docker-pullable://052937454741.dkr.ecr.us-east-2.amazonaws.com/user19-screeningmanage@sha256:f8ca29bb6a30f8ca37e0d292ff04a3e6a6d46ce1d40f24330cd244a304e4f72b
     Port:           8080/TCP
     Host Port:      0/TCP
     State:          Running
-      Started:      Tue, 01 Sep 2020 07:55:29 +0000
+      Started:      Wed, 02 Sep 2020 19:10:48 +0900
     Ready:          True
     Restart Count:  0
     Liveness:       http-get http://:8080/actuator/health delay=120s timeout=2s period=5s #success=1 #failure=5
@@ -776,7 +776,7 @@ Containers:
     Environment:
       api.hospital.url:  <set to the key 'api.hospital.url' of config map 'my-config'>  Optional: false
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from default-token-xw8ld (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-zqgfg (ro)
 
 ```
 kubectl describe 명령으로 컨테이너에 configMap 적용여부를 알 수 있다. 
