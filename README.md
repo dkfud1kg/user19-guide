@@ -23,6 +23,7 @@
   - [폴리글랏 퍼시스턴스](#폴리글랏-퍼시스턴스)
   - [동기식 호출 과 Fallback 처리](#동기식-호출-과-Fallback-처리)
   - [비동기식 호출 과 Eventual Consistency](#비동기식-호출-과-Eventual-Consistency)
+  - [CQRS 구현](#CQRS 구현)
 - [운영](#운영)
   - [CI/CD 설정](#cicd설정)
   - [서킷 브레이킹 / 장애격리](#서킷-브레이킹-/-장애격리)
@@ -337,6 +338,43 @@ mvn spring-boot:run
 
 #예약관리상태 확인
 http localhost:8083/reservations     # 예약상태가 "취소됨"으로 확인
+```
+
+## CQRS 구현
+
+데이터 변경이 발생하는 명령(CUD)와 조회를 분리하여 CQRS를 구현하였음.
+MyPage는 발생하는 이벤트를 수집하여 데이터베이스에 저장하고, 이를 조회함.
+검진예약요청(Requested), 검진예약취소(Canceld), 병원정보삭제로 인한 강제취소(ForceCanceled),
+예약완료(reservationCompleted) 이벤트를 Mypage에서 조회가능함.
+
+```
+@StreamListener(KafkaProcessor.INPUT)
+    public void whenRequested_then_CREATE_1 (@Payload Requested requested) {
+        try {
+            if (requested.isMe()) {
+                // view 객체 생성
+                MyPage myPage = new MyPage();
+                // view 객체에 이벤트의 Value 를 set 함
+                myPage.setScreeningId(requested.getId());
+                myPage.setCustNm(requested.getCustNm());
+                myPage.setHospitalNm(requested.getHospitalNm());
+                myPage.setStatus(requested.getStatus());
+                // view 레파지 토리에 save
+                myPageRepository.save(myPage);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+ ...
+@StreamListener(KafkaProcessor.INPUT)
+    public void whenCanceled_then_UPDATE_1(@Payload Canceled canceled) 
+    ...
+    public void whenForceCanceled_then_UPDATE_2(@Payload ForceCanceled forceCanceled)
+    ...
+    public void whenReservationCompleted_then_UPDATE_3(@Payload ReservationCompleted reservationCompleted)
+    ...
+    
 ```
 
 # 운영
