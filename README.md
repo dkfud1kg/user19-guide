@@ -406,75 +406,50 @@ spec:
 ```
 $kubectl apply -f dr-hospital.yaml
 
-$siege -c100 -t60S -r10  -v http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals 
-HTTP/1.1 200   0.03 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.04 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.02 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      81 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.01 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      81 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.01 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.01 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.01 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.01 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      81 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      81 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.02 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.02 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.01 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      81 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.02 secs:      95 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      95 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.03 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 200   0.02 secs:    5650 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.02 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.02 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.02 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.02 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.02 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.02 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.01 secs:      19 bytes ==> GET  /hospitals
-HTTP/1.1 503   0.00 secs:      19 bytes ==> GET  /hospitals
+$ siege -v -c300 -t300S -r10 --content-type "application/json" 'http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals POST {"id": "101","hospitalId":"2","hospitalNm":"bye","chkDate":"0909","pcnt":20}' 
+naws.com:8080/hospitals
+HTTP/1.1 200     1.81 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 200     1.69 secs:       0 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+[alert] socket: select and discovered it's not ready sock.c:351: Connection timed out
+[alert] socket: select and discovered it's not ready sock.c:351: Connection timed out
+[alert] socket: read check timed out(30) sock.c:240: Connection timed out
+[alert] socket: read check timed out(30) sock.c:240: Connection timed out
+HTTP/1.1 500    30.19 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    31.30 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    30.11 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    30.35 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    30.41 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    30.30 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    56.81 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    30.81 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    42.69 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    30.79 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+HTTP/1.1 500    30.78 secs:     167 bytes ==> POST http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
+:
 
-Transactions:                    194 hits
-Availability:                  16.68 %
-Elapsed time:                  59.76 secs
-Data transferred:               1.06 MB
-Response time:                  0.03 secs
-Transaction rate:               3.25 trans/sec
-Throughput:                     0.02 MB/sec
-Concurrency:                    0.10
-Successful transactions:         194
-Failed transactions:             969
-Longest transaction:            0.04
-Shortest transaction:           0.00
+Transactions:                   4971 hits
+Availability:                  83.76 %
+Elapsed time:                 221.27 secs
+Data transferred:               0.16 MB
+Response time:                  8.52 secs
+Transaction rate:              22.47 trans/sec
+Throughput:                     0.00 MB/sec
+Concurrency:                  191.41
+Successful transactions:        4971
+Failed transactions:             964
+Longest transaction:          108.11
+Shortest transaction:           0.84
 
 
 ```
 
 * DestinationRule 적용되어 서킷 브레이킹 동작 확인 (kiali 화면)
-![Kaili_DR RUlE적용](https://user-images.githubusercontent.com/67453893/91850567-b7bca880-ec98-11ea-8f9b-59b4223fb046.png)
+![Kaili_DR RUlE적용](https://user-images.githubusercontent.com/67447253/92018948-d8682980-ed90-11ea-8e30-80cfe5862615.JPG)
 
 * 다시 부하 발생하여 DestinationRule 적용 제거하여 정상 처리 확인
 ```
 kubectl delete -f dr-hospital.yaml
+destinationrule.networking.istio.io "dr-hospital" deleted
 ```
 
 
