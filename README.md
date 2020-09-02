@@ -504,91 +504,99 @@ kubectl autoscale deploy hospitalmanage -n skcc-ns --min=1 --max=10 --cpu-percen
 # 적용 내용
 $kubectl get all -n skcc-ns
 NAME                        TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)          AGE
-service/gateway             LoadBalancer   10.100.95.162    a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com   8080:30387/TCP   19h
-service/hospitalmanage      ClusterIP      10.100.5.64      <none>                                                                   8080/TCP         19h
-service/mypage              ClusterIP      10.100.240.169   <none>                                                                   8080/TCP         19h
-service/reservationmanage   ClusterIP      10.100.232.233   <none>                                                                   8080/TCP         19h
-service/screeningmanage     ClusterIP      10.100.101.120   <none>                                                                   8080/TCP         19h
+service/alarm               ClusterIP      10.100.36.145    <none>                                                                   8080/TCP         4h35m
+service/gateway             LoadBalancer   10.100.217.63    a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com   8080:30150/TCP   8h
+service/hospitalmanage      ClusterIP      10.100.2.140     <none>                                                                   8080/TCP         8h
+service/mypage              ClusterIP      10.100.109.74    <none>                                                                   8080/TCP         8h
+service/reservationmanage   ClusterIP      10.100.63.221    <none>                                                                   8080/TCP         8h
+service/screeningmanage     ClusterIP      10.100.254.255   <none>                                                                   8080/TCP         8h
 
 NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/gateway             1/1     1            1           19h
-deployment.apps/hospitalmanage      1/1     1            1           11h
-deployment.apps/mypage              1/1     1            1           19h
-deployment.apps/reservationmanage   1/1     1            1           19h
-deployment.apps/screeningmanage     1/1     1            1           19h
+deployment.apps/alarm               1/1     1            1           4h35m
+deployment.apps/gateway             1/1     1            1           8h
+deployment.apps/hospitalmanage      4/8     8            4           8h
+deployment.apps/mypage              1/1     1            1           8h
+deployment.apps/reservationmanage   1/1     1            1           8h
+deployment.apps/screeningmanage     1/1     1            1           8h
 
 NAME                                           DESIRED   CURRENT   READY   AGE
-replicaset.apps/gateway-5d58bbcb67             1         1         1       19h
-replicaset.apps/gateway-db44fcf75              0         0         0       19h
-replicaset.apps/hospitalmanage-8658bbbb6f      1         1         1       11h
-replicaset.apps/mypage-567c4b57ff              1         1         1       18h
-replicaset.apps/mypage-f5486756b               0         0         0       19h
-replicaset.apps/reservationmanage-6f47749879   0         0         0       18h
-replicaset.apps/reservationmanage-c96669994    1         1         1       18h
-replicaset.apps/reservationmanage-f74d47f65    0         0         0       19h
-replicaset.apps/screeningmanage-56ff67c8cf     0         0         0       18h
-replicaset.apps/screeningmanage-598b5f9767     0         0         0       17h
-replicaset.apps/screeningmanage-645c457774     0         0         0       19h
-replicaset.apps/screeningmanage-6485bb9857     0         0         0       17h
-replicaset.apps/screeningmanage-6865764467     0         0         0       19h
-replicaset.apps/screeningmanage-78984d5dc8     0         0         0       17h
-replicaset.apps/screeningmanage-9498f6bdc      1         1         1       17h
+replicaset.apps/alarm-5f7494994c               1         1         1       3h6m
+replicaset.apps/alarm-9c88d67bb                0         0         0       4h35m
+replicaset.apps/gateway-697f969f97             0         0         0       8h
+replicaset.apps/gateway-699d4948c6             1         1         1       4h57m
+replicaset.apps/hospitalmanage-556d5dd5bb      0         0         0       57m
+replicaset.apps/hospitalmanage-56bbf659df      0         0         0       97m
+replicaset.apps/hospitalmanage-58847bd984      0         0         0       106m
+replicaset.apps/hospitalmanage-6dc47dfb67      0         0         0       93m
+replicaset.apps/hospitalmanage-6fff9976b6      8         8         4       40m
+replicaset.apps/hospitalmanage-764f49c7f9      0         0         0       88m
+replicaset.apps/hospitalmanage-78dd8cbf8d      0         0         0       62m
+replicaset.apps/hospitalmanage-7bf876c4c8      0         0         0       70m
+replicaset.apps/hospitalmanage-b5cd6c58        0         0         0       74m
+replicaset.apps/hospitalmanage-cc865dfdd       0         0         0       78m
+replicaset.apps/hospitalmanage-fd6b58f87       0         0         0       83m
+replicaset.apps/mypage-6f8cc5f986              1         1         1       8h
+replicaset.apps/reservationmanage-7c965b7f79   1         1         1       8h
+replicaset.apps/screeningmanage-69fc7475fc     1         1         1       8h
 
-NAME                                                 REFERENCE                   TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-horizontalpodautoscaler.autoscaling/hospitalmanage   Deployment/hospitalmanage   2%/15%   1         10        0          7s
+NAME                                                 REFERENCE                   TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/hospitalmanage   Deployment/hospitalmanage   3%/15%   1         10        4          19s
 ```
 
 - siege로 워크로드를 1분 동안 걸어준다.
 ```
-$  siege -c100 -t60S -r10  -v http://a67fdf8668e5d4b518f8ac2a62bd4b45-334568913.us-east-2.elb.amazonaws.com:8080/hospitals
+$  siege -c100 -t60S -r10  -v http://a054463cd929f4f5d8511d21742857b1-661192261.us-east-2.elb.amazonaws.com:8080/hospitals
 ```
 
 - 오토스케일이 어떻게 되고 있는지 모니터링을 걸어둔다:
 ```
-kubectl get deploy hospitalmanage -n skcc-ns -w 
+$ kubectl get deploy hospitalmanage -n skcc-ns -w 
 ```
 
 - 어느정도 시간이 흐른 후 (약 30초) 스케일 아웃이 벌어지는 것을 확인할 수 있다:
 ```
 NAME             READY   UP-TO-DATE   AVAILABLE   AGE
-hospitalmanage   1/1     1            1           11h
-hospitalmanage   1/4     1            1           11h
-hospitalmanage   1/4     1            1           11h
-hospitalmanage   1/4     1            1           11h
-hospitalmanage   1/4     4            1           11h
-hospitalmanage   1/5     4            1           11h
-hospitalmanage   1/5     4            1           11h
-hospitalmanage   1/5     4            1           11h
-hospitalmanage   1/5     5            1           11h
+hospitalmanage   1/4     4            1           8h
+hospitalmanage   2/4     4            2           8h
+hospitalmanage   3/4     4            3           8h
+hospitalmanage   4/4     4            4           8h
+hospitalmanage   4/8     4            4           8h
+hospitalmanage   4/8     4            4           8h
+hospitalmanage   4/8     4            4           8h
+hospitalmanage   4/8     8            4           8h
+hospitalmanage   4/10    8            4           8h
+hospitalmanage   4/10    8            4           8h
+hospitalmanage   4/10    8            4           8h
+hospitalmanage   4/10    10           4           8h
 ```
 
-- kubectl get으로 HPA을 확인하면 CPU 사용률이 64%로 증가됐다.
+- kubectl get으로 HPA을 확인하면 CPU 사용률이 129%로 증가됐다.
 ```
 $kubectl get hpa hospitalmanage -n skcc-ns 
 NAME                                                 REFERENCE                   TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-horizontalpodautoscaler.autoscaling/hospitalmanage   Deployment/hospitalmanage   64%/15%   1         10        5          2m54s
+horizontalpodautoscaler.autoscaling/hospitalmanage   Deployment/hospitalmanage   129%/15%   1         10        5          2m54s
 ```
 
 - siege 의 로그를 보면 Availability가 100%로 유지된 것을 확인 할 수 있다.  
 ```
 Lifting the server siege...
-Transactions:                  26446 hits
+Transactions:                   6093 hits
 Availability:                 100.00 %
-Elapsed time:                 179.76 secs
-Data transferred:               8.73 MB
-Response time:                  0.68 secs
-Transaction rate:             147.12 trans/sec
-Throughput:                     0.05 MB/sec
-Concurrency:                   99.60
-Successful transactions:       26446
+Elapsed time:                  29.69 secs
+Data transferred:               0.93 MB
+Response time:                  0.48 secs
+Transaction rate:             205.22 trans/sec
+Throughput:                     0.03 MB/sec
+Concurrency:                   98.61
+Successful transactions:        6093
 Failed transactions:               0
-Longest transaction:            5.85
-Shortest transaction:           0.00
+Longest transaction:            2.76
+Shortest transaction:           0.34
 ```
 
 - HPA 삭제 
 ```
-$kubectl kubectl delete hpa hospitalmanage  -n skcc-ns
+$kubectl delete hpa hospitalmanage  -n skcc-ns
 ```
 
 
