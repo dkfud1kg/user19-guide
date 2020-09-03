@@ -73,6 +73,9 @@
 ## Event Storming 결과
 
 ![eventstorming](https://user-images.githubusercontent.com/67453893/91924624-2ee05400-ed0e-11ea-8221-b47b547f9dd9.png)
+
+건강검진 예약 완료 및 취소 알림 기능의 알림 서비스 추가
+예약 완료됨(ReservationCompleted), 취소 시 예약 변경됨(ReservationChanged) 이벤트를 수신하여 고객에게 알림을 발송함.
 ![eventstorming](https://user-images.githubusercontent.com/67447253/92061794-25202480-edd2-11ea-9cb7-e33a6ddbe0bb.png)
 
 ### 이벤트 도출
