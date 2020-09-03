@@ -232,7 +232,7 @@ public interface HospitalService {
 }
 ```
 
-- 고객검진요청을 받은 직후(@PostPersist) 병원벙보를 요청하도록 처리
+- 고객검진요청을 받은 직후(@PostPersist) 병원정보 요청하도록 처리
 ```
 # Screening.java (Entity)
 
