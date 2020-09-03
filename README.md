@@ -73,6 +73,7 @@
 ## Event Storming 결과
 
 ![eventstorming](https://user-images.githubusercontent.com/67453893/91924624-2ee05400-ed0e-11ea-8221-b47b547f9dd9.png)
+![eventstorming](https://user-images.githubusercontent.com/67447253/92061794-25202480-edd2-11ea-9cb7-e33a6ddbe0bb.png)
 
 ### 이벤트 도출
 ![그림2](https://user-images.githubusercontent.com/67453893/91927264-065b5880-ed14-11ea-8c93-fe8b68396363.png)
