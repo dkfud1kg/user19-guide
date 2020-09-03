@@ -822,3 +822,107 @@ Containers:
 
 ```
 kubectl describe 명령으로 컨테이너에 configMap 적용여부를 알 수 있다. 
+
+## livenessProbe 설정
+
+* buildspec.yaml
+```
+  livenessProbe:
+    exec:
+      command:
+      - cat
+      - /tmp/a.txt
+    failureThreshold: 1
+    initialDelaySeconds: 60
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 1 
+```
+* livenessProbe 체크 파일 설정
+```
+$ kubectl exec -it pod/hospitalmanage-86dc9c8bbd-qtsdm -n skcc-ns -- /bin/sh
+/ # touch /tmpcommand terminated with exit code 137
+appadmin@LAPTOP-3C323AV9:~$ touch /tmp/a.txt
+appadmin@LAPTOP-3C323AV9:~$ ll /tmp
+total 24
+drwxrwxrwt  5 root     root     4096 Sep  3 14:13 ./
+drwxr-xr-x 19 root     root     4096 Sep  2 22:38 ../
+-rw-r--r--  1 appadmin appadmin    0 Sep  3 14:13 a.txt
+drwxr-xr-x  2 appadmin appadmin 4096 Aug  3 21:14 hsperfdata_appadmin/
+drwxr-xr-x  2 root     root     4096 Aug  3 22:03 hsperfdata_root/
+-rw-------  1 appadmin appadmin  711 Aug 28 22:13 kubectl-edit-9oe6y.yaml
+drwx------  2 root     root     4096 Aug  3 01:19 tmpf9ga9ml1/
+```
+* pod RESTARTS 4회 진행중 상태 확인
+```
+$ kubectl get pod -n skcc-ns
+NAME                                 READY   STATUS    RESTARTS   AGE
+alarm-5f7494994c-5p4mn               1/1     Running   0          14h
+gateway-699d4948c6-9cbgv             1/1     Running   0          15h
+hospitalmanage-745866c6dd-5pksj      0/1     Running   4          4m48s
+mypage-6f8cc5f986-lgpbj              1/1     Running   0          19h
+reservationmanage-7c965b7f79-5n4fp   1/1     Running   0          19h
+screeningmanage-69fc7475fc-9vztl     1/1     Running   0          19h
+```
+* pod describe 확인
+```
+$ kubectl describe pod/hospitalmanage-745866c6dd-5pksj -n skcc-ns
+Name:           hospitalmanage-745866c6dd-5pksj
+Namespace:      skcc-ns
+Priority:       0
+Node:           ip-192-168-41-121.us-east-2.compute.internal/192.168.41.121
+Start Time:     Thu, 03 Sep 2020 14:12:27 +0900
+Labels:         app=hospitalmanage
+                pod-template-hash=745866c6dd
+Annotations:    kubernetes.io/psp: eks.privileged
+Status:         Running
+IP:             192.168.52.166
+IPs:            <none>
+Controlled By:  ReplicaSet/hospitalmanage-745866c6dd
+Containers:
+  hospitalmanage:
+    Container ID:   docker://4c93d558310b63e6fccee42d7a29d18f6785b9ef933a6a65ae13a816e5fea5e7
+    Image:          052937454741.dkr.ecr.us-east-2.amazonaws.com/user19-hospitalmanage:812e7a27abddd706e768a4ae204cc30e77efb484
+    Image ID:       docker-pullable://052937454741.dkr.ecr.us-east-2.amazonaws.com/user19-hospitalmanage@sha256:2d4f0b7f7674c95e08c6876bd8363dbf5d20a042bf959ad422fe9bc5bc1c8ee9
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Thu, 03 Sep 2020 14:16:47 +0900
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    143
+      Started:      Thu, 03 Sep 2020 14:15:42 +0900
+      Finished:     Thu, 03 Sep 2020 14:16:47 +0900
+    Ready:          True
+    Restart Count:  4
+    Liveness:       exec [cat /tmp/a.txt] delay=60s timeout=1s period=5s #success=1 #failure=1
+    Readiness:      http-get http://:8080/actuator/health delay=30s timeout=2s period=5s #success=1 #failure=10
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-zqgfg (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-zqgfg:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-zqgfg
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason     Age                  From                                                   Message
+  ----     ------     ----                 ----                                                   -------
+  Normal   Scheduled  5m9s                 default-scheduler                                      Successfully assigned skcc-ns/hospitalmanage-745866c6dd-5pksj to ip-192-168-41-121.us-east-2.compute.internal
+  Normal   Pulled     114s (x4 over 5m7s)  kubelet, ip-192-168-41-121.us-east-2.compute.internal  Successfully pulled image "052937454741.dkr.ecr.us-east-2.amazonaws.com/user19-hospitalmanage:812e7a27abddd706e768a4ae204cc30e77efb484"
+  Normal   Created    114s (x4 over 5m7s)  kubelet, ip-192-168-41-121.us-east-2.compute.internal  Created container hospitalmanage
+  Normal   Started    114s (x4 over 5m6s)  kubelet, ip-192-168-41-121.us-east-2.compute.internal  Started container hospitalmanage
+  Warning  Unhealthy  50s (x4 over 4m5s)   kubelet, ip-192-168-41-121.us-east-2.compute.internal  Liveness probe failed: cat: can't open '/tmp/a.txt': No such file or directory
+  Normal   Killing    50s (x4 over 4m5s)   kubelet, ip-192-168-41-121.us-east-2.compute.internal  Container hospitalmanage failed liveness probe, will be restarted
+  Normal   Pulling    49s (x5 over 5m8s)   kubelet, ip-192-168-41-121.us-east-2.compute.internal  Pulling image "052937454741.dkr.ecr.us-east-2.amazonaws.com/user19-hospitalmanage:812e7a27abddd706e768a4ae204cc30e77efb484"
+```
